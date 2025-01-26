@@ -8,6 +8,10 @@ class Ball{
     double radius;
     Color color;
 
+    final double GRAVITY = 0.1;
+    final double BOUNCE = 0.8;
+    final double GROUND_Y = 500;
+
     Ball(double x, double y, double vx, double vy, double radius, Color color){
         this.x = x;
         this.y = y;
@@ -20,7 +24,12 @@ class Ball{
     public void move(){
         x += vx;
         y += vy;
-        vy += 0.1;// let's assume it as gravity
+        vy += GRAVITY;// apply gravity
+
+        if (y + radius >= GROUND_Y){
+            y = GROUND_Y - radius;
+            vy = -vy * BOUNCE;
+        }
     }
 
     public void draw(Graphics g){
@@ -39,8 +48,8 @@ public class PhysEng extends JPanel{
     Ball ball1, ball2;
 
     public PhysEng(){
-        ball1 = new Ball(100, 100, 2, 2, 20, Color.RED);
-        ball2 = new Ball(200, 100, -2, 2, 20, Color.BLUE);
+        ball1 = new Ball(400, 100, 2, 2, 20, Color.RED);
+        ball2 = new Ball(500, 100, -2, 2, 20, Color.BLUE);
 
         Timer timer = new Timer(10, e -> {
             ball1.move();
