@@ -30,17 +30,22 @@ To test circle collision, create two `Circle` objects and check if they collide.
 Example:
 
 ```java
-import physicsengine.Circle;
+package com.amssPhy;
 
-public class Main {
-    public static void main(String[] args) {
-        Circle circle1 = new Circle(10, 100, 100); // radius, x, y
-        Circle circle2 = new Circle(15, 120, 120);
+public class collisionMath {
+    public static void main(String [] args){
+        double x1 = 100, y1 = 100, r1 = 100;
+        double x2 = 130, y2 = 130, r2 =20;
 
-        if (circle1.collidesWith(circle2)) {
-            System.out.println("Collision Detected!");
-        } else {
-            System.out.println("No Collision");
+        if (checkCircleCollision(x1,y1,r1,x2,y2,r2)){
+            System.out.println("The circles collide!");
+        }else{
+            System.out.println("The circles don't collide.");
         }
+    }
+
+    public static boolean checkCircleCollision(double x1, double y1, double r1, double x2, double y2, double r2){
+        double distance = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+        return distance <= (r1 + r2);
     }
 }
